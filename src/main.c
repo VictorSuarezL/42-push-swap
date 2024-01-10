@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/10 16:55:25 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:02:09 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,20 @@ int main(int ac, char *av[])
 	j = 0;
 
 	//ft_check_args(ac, av);
-	if(ac == 1)
-		input = av[1];
-	else
+	// if(ac == 1)
+	// 	input = av[1];
+	// else
+	// {
+	input = av[i++];
+	while(i < ac)
 	{
-		while(i < ac)
-		{
-			input = ft_strjoin(input, av[i]);
-			if(i < (ac - 1))
-				input = ft_strjoin(input, " ");
-			i++;
-		}
+		input = ft_strjoin(input, " ");
+		input = ft_strjoin(input, av[i]);
+		// if(i < (ac - 1))
+		// 	input = ft_strjoin(input, " ");
+		i++;
 	}
+	// }
 
 
 
