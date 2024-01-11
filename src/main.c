@@ -6,89 +6,110 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/10 17:02:09 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:54:39 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 #include <stdio.h>
 
-
-//!!!!! PONER FLAGS EN MAKEFILE
-
-static void leaks(void){
+static void	leaks(void)
+{
 	system("leaks push_swap");
 }
 
-void print_double_p(char **s)
+void	print_double_p(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		printf("%i = %s\n", i, s[i]);
 		i++;
 	}
 }
 
-void ft_check_args(int ac, char **av)
+// char *ft_join_args(int ac, char **av)
+// {
+// 	int		i;
+// 	char	*input;
+// 	char	**split;
+
+// 	i = 1;
+// 	input = ft_calloc(1, 1);
+// 	if(!input)
+// 		return(0);
+// 	input = av[i];
+// 	while (++i < ac)
+// 	{
+// 		// input = ft_strjoin(input, " ");
+// 		input = ft_strjoin(input, av[i]);
+// 	}
+// 	// split = ft_split(input, ' ');
+// 	free(input);
+// 	// split = ft_check_args(split);
+// 	return input;
+// }
+
+char *ft_join_args(int ac, char **av)
 {
 	int i;
-	char **args;
-
-	i = 0;
-	if(ac == 2)
-	{
-		args = ft_split(av[1], ' ');
-		print_double_p(args);
-	}
-	else
-	{
-		i = 1;
-		args = av;
-
-	}
-}
-
-int main(int ac, char *av[])
-{
-	if(ac < 1)
-		return -1;
-
-	int i;
-	int j;
+	char *tmp;
 	char *input;
 
 	i = 1;
-	j = 0;
-
-	//ft_check_args(ac, av);
-	// if(ac == 1)
-	// 	input = av[1];
-	// else
-	// {
-	input = av[i++];
-	while(i < ac)
+	input = av[i];
+	while(++i < ac)
 	{
-		input = ft_strjoin(input, " ");
-		input = ft_strjoin(input, av[i]);
-		// if(i < (ac - 1))
-		// 	input = ft_strjoin(input, " ");
-		i++;
+		
+		// tmp = malloc(sizeof(char) * ft_strlen(input) + 1);
+		// tmp[ft_strlen(input)] = '\0';
+		// tmp = input;
+		input = ft_strjoin(tmp, av[i]);
+		free(tmp);
 	}
-	// }
+	return(input);
+}
 
+void ft_error(void)
+{
+	printf("Error\n");
+	exit(EXIT_FAILURE);
+}
 
+// This function
+char **ft_check_args(char **split)
+{
+	int i;
+	int j;
 
-	printf("input = %s\n", input);
+	i = -1;
+	while (split[++i])
+	{
+		if (ft_strncmp(split[i], ft_itoa(ft_atoi(split[i])),
+				ft_strlen(split[i]) != 0))
+		{
+			// printf("Error!");
+			ft_error();
+		}
+	}
+	return(split);
+}
 
-	// while(i < ac)
-	// {
-	// 	input = ft_strjoin(input, av[i++]);
-	// }
-	// printf("input = %s\n", input);
-	// printf("\t\t\t\t<---------------------------->");
-	// atexit(leaks);
-	return(0);
+int	main(int ac, char *av[])
+{
+	if (ac < 1)
+		return (-1);
+
+	char *args;
+	char *foo;
+	args = ft_join_args(ac, av);
+	printf("%s\n", args);
+	// args = ft_check_args(args);
+	// print_double_p(args);
+
+	printf("<<<<<<----------->>>>>>");
+	atexit(leaks);
+	return (0);
 }
