@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:42:36 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/11 10:58:13 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:48:29 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_double_p(char **s);
 
 
 // Stack
-// typedef struct s_list
-// {
-// 	// int				index;
-// 	int				value;
-// 	struct s_list	*next;
-// }					t_list;
+typedef struct s_list
+{
+	int				index;
+	int				value;
+	struct s_list	*next;
+}					t_lst;
 
 #include "libft/libft.h"
 
