@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/12 13:18:49 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:01:47 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,50 +35,19 @@ void print_array_of_int(int *num, int len)
 
 	while(i < len)
 	{
+		printf(" %i,", num[i]);
 		i++;
 	}
+	printf("\n");
 }
 
-/* char *ft_join_args(int ac, char **av)
+void print_list(t_list *lst)
 {
-	int		i;
-	char	*input;
-	char	**split;
-
-	i = 1;
-	input = ft_calloc(1, 1);
-	if(!input)
-		return(0);
-	input = av[i];
-	while (++i < ac)
+	while(lst)
 	{
-		// input = ft_strjoin(input, " ");
-		input = ft_strjoin(input, av[i]);
+		printf("%i\n", lst->value);
+		lst = lst->next;
 	}
-	// split = ft_split(input, ' ');
-	free(input);
-	// split = ft_check_args(split);
-	return input;
-} */
-
-char *ft_join_args(int ac, char **av)
-{
-	int i;
-	char *tmp;
-	char *input;
-
-	i = 1;
-	input = av[i];
-	while(++i < ac)
-	{
-
-		// tmp = malloc(sizeof(char) * ft_strlen(input) + 1);
-		// tmp[ft_strlen(input)] = '\0';
-		// tmp = input;
-		input = ft_strjoin(tmp, av[i]);
-		free(tmp);
-	}
-	return(input);
 }
 
 void	ft_error(char *msg)
@@ -99,9 +68,6 @@ char	**free_all(char **s)
 	free(s);
 	return (NULL);
 }
-
-// This function
-
 
 char *ft_copy_args(int ac, char **av)
 {
@@ -141,30 +107,14 @@ char *ft_copy_args(int ac, char **av)
 	return(args);
 }
 
-// int ft_are_parseable(char **args_split)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = -1;
-// 	while (args_split[++i])
-// 	{
-// 		if (ft_strncmp(args_split[i], ft_itoa(ft_atoi(args_split[i])),
-// 				ft_strlen(args_split[i]) != 0))
-// 		{
-// 			ft_error("Error!");
-// 		}
-// 	}
-// 	return(1);
-// }
-
-int ft_are_parseable(char *s)
+/* int ft_are_parseable(char *s)
 {
 	if (ft_strncmp(s, ft_itoa(ft_atoi(s)), ft_strlen(s) != 0))
 		return(0);
 
 	return(1);
 }
+ */
 
 int ft_is_unique(int num, int *array, int len)
 {
@@ -180,18 +130,17 @@ int ft_is_unique(int num, int *array, int len)
 	return(1);
 }
 
-int ft_create_args(char **s)
+int *ft_create_args(char **s)
 {
 	int len = 0;
 	int i = 0;
-	// int j = 0;
 	int num = 0;
 	int *array_num;
 
 	while(s[len])
 		len++;
 
-	array_num = (int *)malloc(sizeof(int) * (len));
+	array_num = (int *)malloc(sizeof(int) * (len + 1));
 	if(!array_num)
 		ft_error("Error!");
 
@@ -203,8 +152,6 @@ int ft_create_args(char **s)
 			if(ft_is_unique(num, array_num, i) == 1)
 			{
 				array_num[i] = num;
-
-
 			}
 			else
 			{
@@ -219,7 +166,105 @@ int ft_create_args(char **s)
 		}
 		i++;
 	}
-	return(0);
+	return(array_num);
+}
+
+t_list *ft_lst_new(int value)
+{
+	t_list *node;
+
+	node = (t_list *)malloc(sizeof(t_list));
+	if(!node)
+		return NULL;
+	node->value = value;
+	node->index = -1;
+	node->next = NULL;
+	return(node);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	t_list	*end;
+
+	if (!lst)
+		return (NULL);
+	while (lst)
+	{
+		if (!lst->next)
+		{
+			end = lst;
+		}
+		lst = lst->next;
+	}
+	return (end);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	if (*lst == NULL)
+		*lst = new;
+	else
+		ft_lstlast(*lst)->next = new;
+}
+
+void ft_init_stack(t_list **stack, int ac, char **av)
+{
+	char *str_args;
+	char **args_split;
+	int *array_num;
+	int len;
+
+	str_args = ft_copy_args(ac, av);
+	args_split = ft_split(str_args, ' ');
+	array_num = ft_create_args(args_split);
+
+	while(args_split[len])
+		len++;
+
+	print_array_of_int(array_num, len);
+	t_list *lst;
+	int i;
+
+	i = 0;
+	while(i < len)
+	{
+		lst = ft_lst_new(array_num[i]);
+		ft_lstadd_back(stack, lst);
+		i++;
+	}
+
+	free(str_args);
+	free_all(args_split);
+}
+
+int ft_stack_sorted(t_list *lst)
+{
+	if(!lst)
+		ft_error("Error!");
+
+	while(lst->next)
+	{
+		if(lst->value > lst->next->value)
+			return(0);
+		lst = lst->next;
+	}
+	return 1;
+}
+
+void ft_swap(t_list *lst)
+{
+	int swap;
+
+	// tmp = lst;
+	// swap = lst->value;
+	swap = lst->next->value;
+	lst->next->value = lst->value;
+	lst->value = swap;
+}
+
+void ft_sa(t_list *stack_a)
+{
+
 }
 
 int	main(int ac, char *av[])
@@ -227,9 +272,12 @@ int	main(int ac, char *av[])
 	if (ac < 1)
 		return (-1);
 
-	char *str_args;
+/* 	char *str_args;
 	char **args_split;
-	t_lst **lst;
+	int *array_num; */
+	t_list **stack_a;
+	t_list **stack_b;
+/*
 	// char *foo;
 	// ft_error("Error!");
 	str_args = ft_copy_args(ac, av);
@@ -237,10 +285,37 @@ int	main(int ac, char *av[])
 	args_split = ft_split(str_args, ' ');
 	// print_double_p(args_split);
 
-	ft_create_args_num(args_split);
+	array_num = ft_create_args(args_split);
+	// print_array_of_int(&array_num[1], array_num[0]);
+ */
+	stack_a = (t_list **)malloc(sizeof(t_list));
+	stack_b = (t_list **)malloc(sizeof(t_list));
 
-	free(str_args);
-	free_all(args_split);
+	*stack_a = NULL;
+	*stack_b = NULL;
+
+	ft_init_stack(stack_a, ac, av);
+	print_list(*stack_a);
+	// printf("\nOrdered = %i\n", ft_stack_sorted(*stack_a));
+	if(ft_stack_sorted(*stack_a))
+	{
+		printf("Ordered!\n");
+	}
+	else
+	{
+		printf("Not Ordered!\n");
+		ft_swap(*stack_a);
+		print_list(*stack_a);
+
+
+
+
+
+	}
+
+
+	/* 	free(str_args);
+	free_all(args_split); */
 	// args = ft_join_args(ac, av);
 	// args = ft_check_args(args);
 

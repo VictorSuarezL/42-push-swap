@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:42:36 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/12 12:48:29 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:56:12 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_list
 	int				index;
 	int				value;
 	struct s_list	*next;
-}					t_lst;
+}					t_list;
 
 #include "libft/libft.h"
 
