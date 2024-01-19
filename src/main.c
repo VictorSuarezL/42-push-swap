@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/15 17:01:47 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:52:13 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	leaks(void)
 	system("leaks push_swap");
 }
 
-void	print_double_p(char **s)
+void print_double_p(char **s)
 {
 	int	i;
 
@@ -50,13 +50,13 @@ void print_list(t_list *lst)
 	}
 }
 
-void	ft_error(char *msg)
+void ft_error(char *msg)
 {
 	ft_putendl_fd(msg, STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
-char	**free_all(char **s)
+char **free_all(char **s)
 {
 	int	i;
 
@@ -182,7 +182,7 @@ t_list *ft_lst_new(int value)
 	return(node);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+t_list *ft_lstlast(t_list *lst)
 {
 	t_list	*end;
 
@@ -199,7 +199,7 @@ t_list	*ft_lstlast(t_list *lst)
 	return (end);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void ft_lstadd_back(t_list **lst, t_list *new)
 {
 	if (*lst == NULL)
 		*lst = new;
@@ -251,20 +251,123 @@ int ft_stack_sorted(t_list *lst)
 	return 1;
 }
 
-void ft_swap(t_list *lst)
+/* void ft_swap(t_list *lst)
 {
 	int swap;
 
-	// tmp = lst;
-	// swap = lst->value;
 	swap = lst->next->value;
 	lst->next->value = lst->value;
 	lst->value = swap;
+} */
+
+int lst_size(t_list *lst)
+{
+	int i = 0;
+
+	while(lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return(i);
 }
 
-void ft_sa(t_list *stack_a)
+int rotate(t_list **lst)
 {
+	t_list *new;
+	if(lst_size(*lst) <= 1)
+		return 0;
+	new = *lst;
+	*lst = (*lst)->next;
+	new->next = NULL;
+	ft_lstadd_back(lst, new);
+	return 1;
+}
 
+void ra(t_list **stack_a)
+{
+	if(rotate(stack_a) == 0)
+		return;
+	ft_putendl_fd("ra", 1);
+}
+
+void rb(t_list **stack_b)
+{
+	if(rotate(stack_b) == 0)
+		return;
+	ft_putendl_fd("rb", 1);
+}
+
+void rr(t_list **stack_a, t_list **stack_b)
+{
+	if(rotate(stack_a) && rotate(stack_b) == 0)
+		return;
+	ft_putendl_fd("rr", 1);
+}
+
+int push(t_list **src, t_list **dst)
+{
+	t_list *tmp;
+
+	tmp = *dst;
+	*dst = *src;
+	*src = (*src)->next;
+	(*dst)->next = tmp;
+	return 1;
+}
+
+// Toma el primer elemento de b y lo pone el primero en a. No hace nada si b está vacio.
+void pa(t_list **stack_a, t_list **stack_b)
+{
+	// swap(stack_a);
+	if(push(stack_b, stack_a) == 0)
+		return;
+	ft_putendl_fd("pa", 1);
+}
+
+// Toma el primer elemento de a y lo pone el primero en b. No hace nada si a está vacio.
+void pb(t_list **stack_a, t_list **stack_b)
+{
+	if(push(stack_a, stack_b) == 0)
+		return;
+	ft_putendl_fd("pb", 1);
+}
+
+int swap(t_list **stack)
+{
+	t_list *tmp;
+
+	if(lst_size(*stack) <= 1)
+		return 0;
+	// ft_putendl_fd("sa", 1);
+	tmp = *stack;
+	*stack = (*stack)->next;
+	tmp->next = (*stack)->next;
+	(*stack)->next = tmp;
+	return 1;
+}
+
+void sa(t_list **stack_a)
+{
+	// swap(stack_a);
+	if(swap(stack_a) == 0)
+		return;
+	ft_putendl_fd("sa", 1);
+}
+
+void sb(t_list **stack_b)
+{
+	// swap(stack_a);
+	if(swap(stack_b) == 0)
+		return;
+	ft_putendl_fd("sa", 1);
+}
+
+void ss(t_list **stack_a, t_list **stack_b)
+{
+	if(swap(stack_a) && swap(stack_b) == 0)
+		return;
+	ft_putendl_fd("ss", 1);
 }
 
 int	main(int ac, char *av[])
@@ -295,21 +398,35 @@ int	main(int ac, char *av[])
 	*stack_b = NULL;
 
 	ft_init_stack(stack_a, ac, av);
-	print_list(*stack_a);
-	// printf("\nOrdered = %i\n", ft_stack_sorted(*stack_a));
 	if(ft_stack_sorted(*stack_a))
 	{
 		printf("Ordered!\n");
 	}
 	else
 	{
+		// print_list(*stack_a);
 		printf("Not Ordered!\n");
-		ft_swap(*stack_a);
+
+		pb(stack_a, stack_b);
+		pb(stack_a, stack_b);
+		pb(stack_a, stack_b);
+		ft_putendl_fd("stack_a", 1);
 		print_list(*stack_a);
+		ft_putendl_fd("stack_b", 1);
+		print_list(*stack_b);
 
+		rr(stack_a, stack_b);
+		ft_putendl_fd("stack_a", 1);
+		print_list(*stack_a);
+		ft_putendl_fd("stack_b", 1);
+		print_list(*stack_b);
 
+		// pa(stack_a, stack_b);
 
-
+		// ft_putendl_fd("stack_a", 1);
+		// print_list(*stack_a);
+		// ft_putendl_fd("stack_b", 1);
+		// print_list(*stack_b);
 
 	}
 
