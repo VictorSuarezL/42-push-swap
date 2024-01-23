@@ -23,7 +23,10 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 #FILES
-SRC_FILES		= $(SRC_DIR)/main.c
+SRC_FILES		= $(SRC_DIR)/main.c \
+	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/utils.c
 
 
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

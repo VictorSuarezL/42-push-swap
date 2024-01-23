@@ -18,225 +18,6 @@ static void	leaks(void)
 	system("leaks push_swap");
 }
 
-void print_double_p(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-}
-
-void print_array_of_int(int *num, int len)
-{
-	int i = 0;
-
-	while(i < len)
-	{
-		printf(" %i,", num[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-void print_list(t_list *lst)
-{
-	while(lst)
-	{
-		printf("%i\n", lst->value);
-		lst = lst->next;
-	}
-}
-
-void ft_error(char *msg)
-{
-	ft_putendl_fd(msg, STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
-
-char **free_all(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i++]);
-	}
-	free(s);
-	return (NULL);
-}
-
-char *ft_copy_args(int ac, char **av)
-{
-	int i = 1;
-	int len = 0;
-	char *args;
-
-	while(i < ac)
-	{
-		len += ft_strlen(av[i]);
-		i++;
-	}
-
-	args = (char *)malloc(sizeof(char) * (len + 1 + ac));
-	if(!args)
-		ft_error("Error");
-
-	i = 1;
-	int j = 0;
-	int k = 0;
-	while(i < ac)
-	{
-		j = 0;
-		while(av[i][j])
-		{
-			args[k] = av[i][j];
-			k++;
-			j++;
-		}
-		i++;
-		if(i < ac)
-			args[k++] = ' ';
-		else
-			args[k++] = '\0';
-	}
-	// args[++k] = '\0';
-	return(args);
-}
-
-/* int ft_are_parseable(char *s)
-{
-	if (ft_strncmp(s, ft_itoa(ft_atoi(s)), ft_strlen(s) != 0))
-		return(0);
-
-	return(1);
-}
- */
-
-int ft_is_unique(int num, int *array, int len)
-{
-	int i = 0;
-
-	while(i < len)
-	{
-		if(num == array[i])
-			return(0);
-		i++;
-	}
-
-	return(1);
-}
-
-int *ft_create_args(char **s)
-{
-	int len = 0;
-	int i = 0;
-	int num = 0;
-	int *array_num;
-
-	while(s[len])
-		len++;
-
-	array_num = (int *)malloc(sizeof(int) * (len + 1));
-	if(!array_num)
-		ft_error("Error!");
-
-	while(s[i])
-	{
-		if(ft_strncmp(s[i], ft_itoa(ft_atoi(s[i])), ft_strlen(s[i])) == 0)
-		{
-			num = ft_atoi(s[i]);
-			if(ft_is_unique(num, array_num, i) == 1)
-			{
-				array_num[i] = num;
-			}
-			else
-			{
-				free(array_num);
-				ft_error("Error!");
-			}
-		}
-		else
-		{
-			free(array_num);
-			ft_error("Error!");
-		}
-		i++;
-	}
-	return(array_num);
-}
-
-t_list *ft_lst_new(int value)
-{
-	t_list *node;
-
-	node = (t_list *)malloc(sizeof(t_list));
-	if(!node)
-		return NULL;
-	node->value = value;
-	node->index = -1;
-	node->next = NULL;
-	return(node);
-}
-
-t_list *ft_lstlast(t_list *lst)
-{
-	t_list	*end;
-
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (!lst->next)
-		{
-			end = lst;
-		}
-		lst = lst->next;
-	}
-	return (end);
-}
-
-void ft_lstadd_back(t_list **lst, t_list *new)
-{
-	if (*lst == NULL)
-		*lst = new;
-	else
-		ft_lstlast(*lst)->next = new;
-}
-
-void ft_init_stack(t_list **stack, int ac, char **av)
-{
-	char *str_args;
-	char **args_split;
-	int *array_num;
-	int len;
-
-	str_args = ft_copy_args(ac, av);
-	args_split = ft_split(str_args, ' ');
-	array_num = ft_create_args(args_split);
-
-	while(args_split[len])
-		len++;
-
-	print_array_of_int(array_num, len);
-	t_list *lst;
-	int i;
-
-	i = 0;
-	while(i < len)
-	{
-		lst = ft_lst_new(array_num[i]);
-		ft_lstadd_back(stack, lst);
-		i++;
-	}
-
-	free(str_args);
-	free_all(args_split);
-}
-
 int ft_stack_sorted(t_list *lst)
 {
 	if(!lst)
@@ -251,16 +32,8 @@ int ft_stack_sorted(t_list *lst)
 	return 1;
 }
 
-/* void ft_swap(t_list *lst)
-{
-	int swap;
 
-	swap = lst->next->value;
-	lst->next->value = lst->value;
-	lst->value = swap;
-} */
-
-int lst_size(t_list *lst)
+int get_lst_size(t_list *lst)
 {
 	int i = 0;
 
@@ -272,10 +45,61 @@ int lst_size(t_list *lst)
 	return(i);
 }
 
+//This function change the pointer to the node given by position
+t_list *get_node(t_list *stack, int pos)
+{
+	int i = 0;
+	t_list *node;
+	
+	node = stack;
+	i = 0;
+	while(i < pos)
+	{
+		node = node->next;
+		i++;
+	}
+	return node;
+}
+
+int rev_rotate(t_list **lst)
+{
+	t_list *tmp;
+
+	if(get_lst_size(*lst) <= 1)
+		return 0;
+	
+	tmp = get_node(*lst, get_lst_size(*lst) - 1);
+	get_node(*lst, get_lst_size(*lst) - 2)->next = NULL;
+	tmp->next = *lst;
+	*lst = tmp;
+	return 1;
+}
+
+void rra(t_list **stack_a)
+{
+	if(rev_rotate(stack_a) == 0)
+		return;
+	ft_putendl_fd("rra", 1);
+}
+
+void rrb(t_list **stack_b)
+{
+	if(rev_rotate(stack_b) == 0)
+		return;
+	ft_putendl_fd("rrb", 1);
+}
+
+void rrr(t_list **stack_a, t_list **stack_b)
+{
+	if(rev_rotate(stack_a) == 0 && rev_rotate(stack_b) == 0)
+		return;
+	ft_putendl_fd("rrr", 1);
+}
+
 int rotate(t_list **lst)
 {
 	t_list *new;
-	if(lst_size(*lst) <= 1)
+	if(get_lst_size(*lst) <= 1)
 		return 0;
 	new = *lst;
 	*lst = (*lst)->next;
@@ -300,7 +124,7 @@ void rb(t_list **stack_b)
 
 void rr(t_list **stack_a, t_list **stack_b)
 {
-	if(rotate(stack_a) && rotate(stack_b) == 0)
+	if(rotate(stack_a) == 0 && rotate(stack_b) == 0)
 		return;
 	ft_putendl_fd("rr", 1);
 }
@@ -337,7 +161,7 @@ int swap(t_list **stack)
 {
 	t_list *tmp;
 
-	if(lst_size(*stack) <= 1)
+	if(get_lst_size(*stack) <= 1)
 		return 0;
 	// ft_putendl_fd("sa", 1);
 	tmp = *stack;
@@ -365,9 +189,166 @@ void sb(t_list **stack_b)
 
 void ss(t_list **stack_a, t_list **stack_b)
 {
-	if(swap(stack_a) && swap(stack_b) == 0)
+	if(swap(stack_a) == 0 && swap(stack_b) == 0)
 		return;
 	ft_putendl_fd("ss", 1);
+}
+
+void display_lst(t_list *stack_a, t_list *stack_b)
+{
+	if (stack_a == NULL && stack_b == NULL)
+		return;
+
+	printf("stack_a\tstack_b\n");
+
+	while (stack_a != NULL || stack_b != NULL)
+	{
+		if (stack_a != NULL)
+		{
+			printf("%i | %i\t", stack_a->value, stack_a->steps_a);
+			stack_a = stack_a->next;
+		}
+		else
+		{
+			printf("\t");
+		}
+
+		if (stack_b != NULL)
+		{
+			printf("%i", stack_b->value);
+			stack_b = stack_b->next;
+		}
+
+		printf("\n");
+	}
+	printf("\t\t<------>\n");
+}
+
+void count_steps_a(t_list *stack_a)
+{
+	int pos;
+	int size_lst;
+
+	size_lst = get_lst_size(stack_a);
+	pos = 0;
+	while(stack_a)
+	{
+		if (pos <= (size_lst/2))
+		{
+			stack_a->steps_a = pos;
+		}
+		else
+		{
+			stack_a->steps_a = size_lst - pos;
+		}
+		stack_a = stack_a->next;
+		pos++;
+	}
+}
+
+int get_min(t_list *lst)
+{
+	int min;
+
+	if(lst)
+	{
+		min = lst->value;
+		lst = lst->next;
+	}
+
+	while(lst)
+	{
+		if(lst->value < min)
+			min = lst->value;
+		lst = lst->next;
+	}
+	return min;
+}
+
+int get_max(t_list *lst)
+{
+	int max;
+
+	if(lst)
+	{
+		max = lst->value;
+		lst = lst->next;
+	}
+
+	while(lst)
+	{
+		if(lst->value > max)
+			max = lst->value;
+		lst = lst->next;
+	}
+	return max;
+}
+
+int get_pos(t_list *lst, int target)
+{
+	int pos = 0;
+
+	while (lst->value != target)
+	{
+		pos++;
+		lst = lst->next;
+	}
+	return pos;
+}
+
+int get_target(t_list *stack_a, t_list *stack_b, int size_b)
+{
+	int target;
+	t_list *tmp_b;
+	int value_b;
+
+	tmp_b = stack_b;
+	target = 0;
+
+	if (stack_a->value < get_min(stack_b) || stack_a->value > get_max(stack_b))
+	{
+		target = get_max(stack_b);
+	}
+	else
+	{
+		while(stack_b->next)
+		{
+			// printf("\tvalue_b = %i\n", stack_b->value);
+			if (stack_a->value < stack_b->value && stack_a->value > stack_b->next->value)
+			{
+				target = stack_b->next->value;
+			}
+			stack_b = stack_b->next;
+		}
+	}
+	return target;
+}
+
+void count_steps_b(t_list *stack_a, t_list *stack_b)
+{
+	int size_b;
+	int target;
+
+	size_b = get_lst_size(stack_b);
+
+	while (stack_a)
+	{
+		target = get_target(stack_a, stack_b, size_b);
+		printf("value_a = %i target = %i\n", stack_a->value, target);
+		stack_a = stack_a->next;
+		// if (get_pos(stack_b, target))
+		// {
+
+		// 	/* code */
+		// }
+		
+		
+
+
+	}
+	
+
+
 }
 
 int	main(int ac, char *av[])
@@ -375,22 +356,10 @@ int	main(int ac, char *av[])
 	if (ac < 1)
 		return (-1);
 
-/* 	char *str_args;
-	char **args_split;
-	int *array_num; */
+
 	t_list **stack_a;
 	t_list **stack_b;
-/*
-	// char *foo;
-	// ft_error("Error!");
-	str_args = ft_copy_args(ac, av);
 
-	args_split = ft_split(str_args, ' ');
-	// print_double_p(args_split);
-
-	array_num = ft_create_args(args_split);
-	// print_array_of_int(&array_num[1], array_num[0]);
- */
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	stack_b = (t_list **)malloc(sizeof(t_list));
 
@@ -404,38 +373,44 @@ int	main(int ac, char *av[])
 	}
 	else
 	{
-		// print_list(*stack_a);
-		printf("Not Ordered!\n");
 
 		pb(stack_a, stack_b);
 		pb(stack_a, stack_b);
-		pb(stack_a, stack_b);
-		ft_putendl_fd("stack_a", 1);
-		print_list(*stack_a);
-		ft_putendl_fd("stack_b", 1);
-		print_list(*stack_b);
 
-		rr(stack_a, stack_b);
-		ft_putendl_fd("stack_a", 1);
-		print_list(*stack_a);
-		ft_putendl_fd("stack_b", 1);
-		print_list(*stack_b);
+		if(get_lst_size(*stack_b) == 2 && ft_stack_sorted(*stack_b) == 0)
+		{
+			rb(stack_b);
+		}
+
+		// pb(stack_a, stack_b);
+		// count_steps_a(*stack_a);
+		display_lst(*stack_a, *stack_b);
+
+		// printf("value = %i target = %i\n", (*stack_a)->value, get_target(*stack_a, *stack_b, get_lst_size(*stack_b)));
+		count_steps_b(*stack_a, *stack_b);
+
+
+
+
+		// rra(stack_a);
+		// display_lst(*stack_a, *stack_b);
+
+		// pb(stack_a, stack_b);
+		// pb(stack_a, stack_b);
+		// pb(stack_a, stack_b);
+		// display_lst(*stack_a, *stack_b);
+
+		// rr(stack_a, stack_b);
+		// display_lst(*stack_a, *stack_b);
 
 		// pa(stack_a, stack_b);
-
-		// ft_putendl_fd("stack_a", 1);
-		// print_list(*stack_a);
-		// ft_putendl_fd("stack_b", 1);
-		// print_list(*stack_b);
-
+		// display_lst(*stack_a, *stack_b);
 	}
 
 
-	/* 	free(str_args);
-	free_all(args_split); */
-	// args = ft_join_args(ac, av);
-	// args = ft_check_args(args);
+/* 	free(str_args);
+	free_all(args_split);
 
-	// atexit(leaks);
+	atexit(leaks); */
 	return (0);
 }
