@@ -143,7 +143,7 @@ void ft_init_stack(t_list **stack, int ac, char **av)
 	while(args_split[len])
 		len++;
 
-	print_array_of_int(array_num, len);
+	// print_array_of_int(array_num, len);
 	t_list *lst;
 	int i;
 

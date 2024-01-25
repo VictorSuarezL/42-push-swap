@@ -19,6 +19,8 @@ typedef struct s_list
 	int				index;
 	int				value;
 	int 			steps_a;
+	int				steps_b;
+	int 			total;
 	struct s_list	*next;
 }					t_list;
 
@@ -28,10 +30,16 @@ typedef struct s_list
 void print_double_p(char **s);
 void print_array_of_int(int *num, int len);
 void print_list(t_list *lst);
+void display_lst(t_list *stack_a, t_list *stack_b);
+void display_lst_reverse(t_list *stack_a, t_list *stack_b);
 
 // UTILS
 void ft_error(char *msg);
 char **free_all(char **s);
+int is_lst_ordered(t_list *lst);
+int get_lst_size(t_list *lst);
+t_list *get_node(t_list *stack, int pos);
+
 
 // ARGS FUNCTIONS:
 char *ft_copy_args(int ac, char **av);
@@ -41,6 +49,24 @@ t_list *ft_lst_new(int value);
 t_list *ft_lstlast(t_list *lst);
 void ft_lstadd_back(t_list **lst, t_list *new);
 void ft_init_stack(t_list **stack, int ac, char **av);
+
+// MOVES:
+int rev_rotate(t_list **lst);
+void rra(t_list **stack_a);
+void rrb(t_list **stack_b);
+void rrr(t_list **stack_a, t_list **stack_b);
+int rotate(t_list **lst);
+void ra(t_list **stack_a);
+void rb(t_list **stack_b);
+void rr(t_list **stack_a, t_list **stack_b);
+int push(t_list **src, t_list **dst);
+void pa(t_list **stack_a, t_list **stack_b);
+void pb(t_list **stack_a, t_list **stack_b);
+int swap(t_list **stack);
+void sa(t_list **stack_a);
+void sb(t_list **stack_b);
+void ss(t_list **stack_a, t_list **stack_b);
+
 
 
 

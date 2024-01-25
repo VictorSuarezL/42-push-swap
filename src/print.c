@@ -32,3 +32,62 @@ void print_list(t_list *lst)
 		lst = lst->next;
 	}
 }
+
+void display_lst(t_list *stack_a, t_list *stack_b)
+{
+	if (stack_a == NULL && stack_b == NULL)
+		return;
+
+	printf("stack_a\t\t\tstack_b\n");
+
+	while (stack_a != NULL || stack_b != NULL)
+	{
+		if (stack_a != NULL)
+		{
+			printf("%d | %d | %d | %d\t\t", stack_a->value, stack_a->steps_a, stack_a->steps_b, stack_a->total);
+			stack_a = stack_a->next;
+		}
+		else
+		{
+			printf("\t\t\t");
+		}
+
+		if (stack_b != NULL)
+		{
+			printf("%i", stack_b->value);
+			stack_b = stack_b->next;
+		}
+
+		printf("\n");
+	}
+	printf("\t\t<------>\n");
+}
+
+void display_lst_reverse(t_list *stack_a, t_list *stack_b)
+{
+	if (stack_a == NULL && stack_b == NULL)
+		return;
+
+	printf("stack_a\t\t\tstack_b\n");
+
+	while (stack_a != NULL || stack_b != NULL)
+	{
+		if (stack_a != NULL)
+		{
+			printf("%i\t\t\t", stack_a->value);
+			stack_a = stack_a->next;
+		}
+		else
+			printf("\t\t\t");
+
+		if (stack_b != NULL)
+		{
+			printf("%d | %d | %d | %d\t\t", stack_b->value, stack_b->steps_a, stack_b->steps_b, stack_b->total);
+			stack_b = stack_b->next;
+
+		}
+
+		printf("\n");
+	}
+	printf("\t\t<------>\n");
+}
