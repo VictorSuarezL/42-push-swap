@@ -26,6 +26,7 @@ typedef struct s_list
 
 #include "libft/libft.h"
 
+int display;
 // HELPER FORBIDEN FUNCTIONS
 void print_double_p(char **s);
 void print_array_of_int(int *num, int len);
@@ -39,6 +40,9 @@ char **free_all(char **s);
 int is_lst_ordered(t_list *lst);
 int get_lst_size(t_list *lst);
 t_list *get_node(t_list *stack, int pos);
+int get_min(t_list *lst);
+int get_max(t_list *lst);
+int get_pos(t_list *lst, int num);
 
 
 // ARGS FUNCTIONS:
@@ -67,7 +71,17 @@ void sa(t_list **stack_a);
 void sb(t_list **stack_b);
 void ss(t_list **stack_a, t_list **stack_b);
 
-
-
+// SORT:
+void count_steps_a(t_list *stack_a);
+void sort_three(t_list **lst);
+int get_target(t_list *stack_a, t_list *stack_b, int size_b);
+void count_steps_b(t_list *stack_a, t_list *stack_b);
+int get_reverse_target(t_list *dst, t_list *src, int size_dst);
+void count_reverse_steps(t_list *dst, t_list *src);
+void sum_steps(t_list *stack_a);
+int get_cheapest(t_list *stack_a);
+void sort(t_list **stack_a, t_list **stack_b, int pos);
+void sort_reverse(t_list **stack_a, t_list **stack_b, int pos);
+void sort_a(t_list **stack_a, int pos);
 
 #endif

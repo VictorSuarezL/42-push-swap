@@ -35,21 +35,26 @@ void print_list(t_list *lst)
 
 void display_lst(t_list *stack_a, t_list *stack_b)
 {
+	// int cheapest;
+	// int pos;
+
 	if (stack_a == NULL && stack_b == NULL)
 		return;
-
-	printf("stack_a\t\t\tstack_b\n");
+	// cheapest = get_cheapest(stack_a);
+	// pos = get_pos(stack_a, cheapest);
+	// taget
+	printf("stack_a\t\t\t\tstack_b\n");
 
 	while (stack_a != NULL || stack_b != NULL)
 	{
 		if (stack_a != NULL)
 		{
-			printf("%d | %d | %d | %d\t\t", stack_a->value, stack_a->steps_a, stack_a->steps_b, stack_a->total);
+			printf("%d | %d | %d | %d\t\t\t", stack_a->value, stack_a->steps_a, stack_a->steps_b, stack_a->total);
 			stack_a = stack_a->next;
 		}
 		else
 		{
-			printf("\t\t\t");
+			printf("\t\t\t\t");
 		}
 
 		if (stack_b != NULL)
@@ -60,7 +65,7 @@ void display_lst(t_list *stack_a, t_list *stack_b)
 
 		printf("\n");
 	}
-	printf("\t\t<------>\n");
+	printf("\t\t\t<------>\n");
 }
 
 void display_lst_reverse(t_list *stack_a, t_list *stack_b)
@@ -68,26 +73,26 @@ void display_lst_reverse(t_list *stack_a, t_list *stack_b)
 	if (stack_a == NULL && stack_b == NULL)
 		return;
 
-	printf("stack_a\t\t\tstack_b\n");
+	printf("stack_a\t\t\t\tstack_b\n");
 
 	while (stack_a != NULL || stack_b != NULL)
 	{
 		if (stack_a != NULL)
 		{
-			printf("%i\t\t\t", stack_a->value);
+			printf("%i\t\t\t\t", stack_a->value);
 			stack_a = stack_a->next;
 		}
 		else
-			printf("\t\t\t");
+			printf("\t\t\t\t");
 
 		if (stack_b != NULL)
 		{
-			printf("%d | %d | %d | %d\t\t", stack_b->value, stack_b->steps_a, stack_b->steps_b, stack_b->total);
+			printf("%d | %d | %d | %d\t\t\t", stack_b->value, stack_b->steps_a, stack_b->steps_b, stack_b->total);
 			stack_b = stack_b->next;
 
 		}
 
 		printf("\n");
 	}
-	printf("\t\t<------>\n");
+	printf("\t\t\t<------>\n");
 }

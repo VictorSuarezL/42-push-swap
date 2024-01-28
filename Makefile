@@ -27,7 +27,8 @@ SRC_FILES		= $(SRC_DIR)/main.c \
 	$(SRC_DIR)/print.c \
 	$(SRC_DIR)/args.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/moves.c
+	$(SRC_DIR)/moves.c \
+	$(SRC_DIR)/sort.c 
 
 
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
