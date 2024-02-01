@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#include "libft/libft.h"
 // Stack
 typedef struct s_list
 {
@@ -24,19 +25,19 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-#include "libft/libft.h"
-
-int display;
 // HELPER FORBIDEN FUNCTIONS
-void print_double_p(char **s);
-void print_array_of_int(int *num, int len);
+// int display = 0;
 void print_list(t_list *lst);
 void display_lst(t_list *stack_a, t_list *stack_b);
 void display_lst_reverse(t_list *stack_a, t_list *stack_b);
+void print_double_p(char **s);
+void print_array_of_int(int *num, int len);
 
 // UTILS
 void ft_error(char *msg);
 char **free_all(char **s);
+// void free_lst(t_list *lst);
+void free_lst_del(t_list **lst);
 int is_lst_ordered(t_list *lst);
 int get_lst_size(t_list *lst);
 t_list *get_node(t_list *stack, int pos);
@@ -44,8 +45,8 @@ int get_min(t_list *lst);
 int get_max(t_list *lst);
 int get_pos(t_list *lst, int num);
 
-
 // ARGS FUNCTIONS:
+int is_validable(char *s);
 char *ft_copy_args(int ac, char **av);
 int ft_is_unique(int num, int *array, int len);
 int *ft_create_args(char **s);

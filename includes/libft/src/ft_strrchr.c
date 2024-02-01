@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 11:00:39 by vsanz-su          #+#    #+#             */
-/*   Updated: 2023/09/21 11:01:41 by vsanz-su         ###   ########.fr       */
+/*   Created: 2023/09/21 11:23:16 by vsanz-su          #+#    #+#             */
+/*   Updated: 2023/09/21 11:23:21 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_bzero(void *p, size_t len)
+char	*ft_strrchr(const char *s, int c)
 {
-	return (ft_memset(p, '\0', len));
+	int		len_s;
+	char	*str;
+
+	str = (char *)s;
+	len_s = ft_strlen(str);
+	while (len_s >= 0)
+	{
+		if (str[len_s] == (unsigned char)c)
+			return (&str[len_s]);
+		len_s--;
+	}
+	return (0);
 }
+

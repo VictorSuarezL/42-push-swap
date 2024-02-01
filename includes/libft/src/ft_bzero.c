@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 09:45:04 by vsanz-su          #+#    #+#             */
-/*   Updated: 2023/10/06 09:40:07 by vsanz-su         ###   ########.fr       */
+/*   Created: 2023/09/21 11:00:39 by vsanz-su          #+#    #+#             */
+/*   Updated: 2023/09/21 11:01:41 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-t_list	*ft_lstlast(t_list *lst)
+void	*ft_bzero(void *p, size_t len)
 {
-	t_list	*end;
-
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (!lst->next)
-		{
-			end = lst;
-		}
-		lst = lst->next;
-	}
-	return (end);
+	return (ft_memset(p, '\0', len));
 }

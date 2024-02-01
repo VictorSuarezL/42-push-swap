@@ -1,20 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 12:51:26 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/15 12:54:10 by vsanz-su         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 int					ft_isalpha(int i);
 int					ft_isdigit(int i);
@@ -52,8 +45,12 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 
+/* GET NEXT LINE */
+char	*get_next_line(int fd);
+
+/* BONUS PART */
 // typedef struct s_list
-// {
+// { 
 // 	void			*content;
 // 	struct s_list	*next;
 // }					t_list;
@@ -70,4 +67,6 @@ void				ft_putnbr_fd(int n, int fd);
 // 						void (*del)(void *));
 // t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 // 						void (*del)(void *));
+
+
 #endif

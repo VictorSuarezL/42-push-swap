@@ -25,7 +25,7 @@ def save_arg_to_file(ARG, filename):
 # Usage:
 # save_arg_to_file(ARG, 'arg.txt')
 
-batch = 1000
+batch = 10
 # Run the commands 10 times with different numbers
 for n in [5, 100, 500]:
     max = -1

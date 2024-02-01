@@ -45,7 +45,6 @@ int get_lst_size(t_list *lst)
 	return(i);
 }
 
-//This function change the pointer to the node given by position
 t_list *get_node(t_list *stack, int pos)
 {
 	int i = 0;

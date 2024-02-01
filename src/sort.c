@@ -1,5 +1,4 @@
 #include <push_swap.h>
-#include <stdio.h>
 
 void count_steps_a(t_list *stack_a)
 {
@@ -81,9 +80,6 @@ void count_steps_b(t_list *stack_a, t_list *stack_b)
 	int target;
 
 	size_b = get_lst_size(stack_b);
-
-	if(display == 1)
-		printf("\n");
 	while (stack_a)
 	{
 		target = get_target(stack_a, stack_b, size_b);
@@ -95,13 +91,8 @@ void count_steps_b(t_list *stack_a, t_list *stack_b)
 		{
 			stack_a->steps_b = -(size_b - get_pos(stack_b, target));
 		}
-		if(display == 1)
-			printf("value_a = %i target = %i\n", stack_a->value, target);
-
 		stack_a = stack_a->next;
 	}
-	if(display == 1)
-		printf("\n");
 }
 
 int get_reverse_target(t_list *dst, t_list *src, int size_dst)
@@ -121,36 +112,17 @@ int get_reverse_target(t_list *dst, t_list *src, int size_dst)
 
 		while (dst->next)
 		{
-/* 			if (src_value > dst->value && src_value < dst->next->value)
-			{
-				target = dst->next->value;
-			}
-			else if (src_value < last_value_dst && src_value > first_value_dst)
-			{
-				target = last_value_dst;
-			}
-			else if (src_value > last_value_dst && src_value < first_value_dst)
-			{
-				target = first_value_dst;
-			} */
-
 			if (src_value > dst->value && src_value < dst->next->value)
 			{
 				target = dst->next->value;
 			}
-			// else if (src_value < last_value_dst && src_value > first_value_dst)
-			// {
-			// 	target = last_value_dst;
-			// }
 			else if (src_value > last_value_dst && src_value < first_value_dst)
 			{
 				target = first_value_dst;
 			}
-			
 			dst = dst->next;
 		}
 	}
-	
 
 	return target;
 }
@@ -160,8 +132,6 @@ void count_reverse_steps(t_list *dst, t_list *src)
 	int size_dst;
 	int target;
 	size_dst = get_lst_size(dst);
-	if(display == 1)
-		printf("\n");
 	while (src)
 	{
 		target = get_reverse_target(dst, src, size_dst);
@@ -171,17 +141,10 @@ void count_reverse_steps(t_list *dst, t_list *src)
 		}
 		else
 		{
-			// stack_a->steps_b = get_pos(stack_b, target) - size_b;
 			src->steps_b = -(size_dst - get_pos(dst, target));
 		}
-		if(display == 1)
-			printf("value_b = %i target = %i\n", src->value, target);
-
 		src = src->next;
 	}
-	if(display == 1)
-		printf("\n");	
-
 }
 
 void sum_steps(t_list *stack_a)
@@ -210,19 +173,14 @@ int get_cheapest(t_list *stack_a)
 	{
 		min = stack_a->total;
 		value_min = stack_a->value;
-		// pos = get_pos(stack_a, stack_a->value);
 		stack_a = stack_a->next;
 	}
-
-	// min_total = 123123;
 	while(stack_a)
 	{
 		if(stack_a->total < min)
 		{
 			min = stack_a->total;
-			// pos = get_pos(stack_a, stack_a->value);
 			value_min = stack_a->value;
-			// printf("here! ->>>> value = %i ->>>> min = %i\n", stack_a->value, min);
 		}   
 		stack_a = stack_a->next;
 	}
@@ -275,9 +233,7 @@ void sort(t_list **stack_a, t_list **stack_b, int pos)
 void sort_reverse(t_list **stack_a, t_list **stack_b, int pos)
 {
 	t_list *tmp;
-	// printf("pos = %i\n", pos);
 	tmp = get_node(*stack_b, pos);
-	// printf("\nwe're gonna move: %i\n", tmp->value);
 
 	while (tmp->steps_a != 0 || tmp->steps_b != 0)
 	{
@@ -315,10 +271,6 @@ void sort_reverse(t_list **stack_a, t_list **stack_b, int pos)
 		}
 	}
 	pa(stack_a, stack_b);
-	// while (is_lst_ordered(*stack_a) == 0)
-	// {
-	// 	ra(stack_a);
-	// }
 }
 
 void sort_a(t_list **stack_a, int pos)

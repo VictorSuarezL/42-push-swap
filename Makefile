@@ -12,9 +12,10 @@
 
 # NAME
 NAME		= push_swap
+NAME_BONUS = checker
 
 #INSTRUCTIONS
-CC			= gcc -I $(INCLUDE) -MMD -g
+CC			= gcc -MMD -g -I$(INCLUDE) 
 RM 			= rm -rf
 
 #FOLDERS
@@ -30,9 +31,19 @@ SRC_FILES		= $(SRC_DIR)/main.c \
 	$(SRC_DIR)/moves.c \
 	$(SRC_DIR)/sort.c 
 
+SRC_FILES_BONUS = $(SRC_DIR)/checker_bonus.c \
+	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/utils.c \
+	$(SRC_DIR)/moves.c \
+
+
+
 
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
-DEP_FILES = $(addsuffix .d, $(basename $(SRC_FILES)))
+BONUS_OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o, $(SRC_FILES_BONUS))
+DEP = $(addsuffix .d, $(basename $(SRC_FILES)))
+BONUS_DEP = $(addsuffix .d, $(basename $(SRC_FILES_BONUS)))
 
 #DEPENDENCIES
 LIBFT_SRC = $(INCLUDE)libft
@@ -40,28 +51,41 @@ FT_LINK = -L$(LIBFT_SRC) -lft
 
 #RULES
 all:
-	$(MAKE) -C $(LIBFT_SRC)
+	$(MAKE) -C $(LIBFT_SRC) 
 	$(MAKE) $(NAME)
 
 $(OBJ_DIR)/%.o: %.c Makefile
-				mkdir -p $(dir $@)
-				$(CC) -c $< -o $@
-
--include $(DEP_FILES)
+	@mkdir -p $(dir $@)
+	$(CC) -c $< -o $@
 
 $(NAME): $(OBJ_FILES)
-		$(CC) $(OBJ_FILES) $(FT_LINK) -o $(NAME)
+	$(CC) $(OBJ_FILES) $(FT_LINK) -o $(NAME)
+
+-include $(DEP)
+
+# $(OBJ_DIR)/%.o: %.c Makefile
+# 	@mkdir -p $(dir $@)
+# 	$(CC) -c $< -o $@
+
+$(NAME_BONUS): $(BONUS_OBJ)
+		$(CC) $(BONUS_OBJ) $(FT_LINK) -o $(NAME_BONUS)
+
+-include $(BONUS_DEP)
+
+bonus: $(NAME_BONUS)
+
+# bonus:		$(BONUS_OBJ)
+# 			gcc -I./includes $(BONUS_OBJ) ./includes/libft/libft.a -o $(NAME_BONUS)
 
 clean:
-	$(RM) $(OBJ_FILES) $(DEP_FILES)
+	$(RM) $(OBJ) $(DEP) $(BONUS_OBJ) $(BONUS_DEP)
 	$(RM) ./$(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_SRC) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_BONUS)
 	$(MAKE) -C $(LIBFT_SRC) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
-
+.PHONY: all clean fclean re bonus

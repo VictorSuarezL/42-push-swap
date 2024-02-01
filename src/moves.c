@@ -18,14 +18,14 @@ void rra(t_list **stack_a)
 {
 	if(rev_rotate(stack_a) == 0)
 		return;
-	ft_putendl_fd("rra", 1);
+	ft_putendl_fd("rra", STDOUT_FILENO);
 }
 
 void rrb(t_list **stack_b)
 {
 	if(rev_rotate(stack_b) == 0)
 		return;
-	ft_putendl_fd("rrb", 1);
+	ft_putendl_fd("rrb", STDOUT_FILENO);
 }
 
 void rrr(t_list **stack_a, t_list **stack_b)
@@ -35,7 +35,7 @@ void rrr(t_list **stack_a, t_list **stack_b)
 	rev_rotate(stack_a);
 	rev_rotate(stack_b);
 
-	ft_putendl_fd("rrr", 1);
+	ft_putendl_fd("rrr", STDOUT_FILENO);
 }
 
 int rotate(t_list **lst)
@@ -54,14 +54,14 @@ void ra(t_list **stack_a)
 {
 	if(rotate(stack_a) == 0)
 		return;
-	ft_putendl_fd("ra", 1);
+	ft_putendl_fd("ra", STDOUT_FILENO);
 }
 
 void rb(t_list **stack_b)
 {
 	if(rotate(stack_b) == 0)
 		return;
-	ft_putendl_fd("rb", 1);
+	ft_putendl_fd("rb", STDOUT_FILENO);
 }
 
 void rr(t_list **stack_a, t_list **stack_b)
@@ -70,7 +70,7 @@ void rr(t_list **stack_a, t_list **stack_b)
 	// 	return;
 	rotate(stack_a);
 	rotate(stack_b);
-	ft_putendl_fd("rr", 1);
+	ft_putendl_fd("rr", STDOUT_FILENO);
 }
 
 int push(t_list **src, t_list **dst)
@@ -90,7 +90,7 @@ void pa(t_list **stack_a, t_list **stack_b)
 	// swap(stack_a);
 	if(push(stack_b, stack_a) == 0)
 		return;
-	ft_putendl_fd("pa", 1);
+	ft_putendl_fd("pa", STDOUT_FILENO);
 }
 
 // Toma el primer elemento de a y lo pone el primero en b. No hace nada si a está vacio.
@@ -98,7 +98,7 @@ void pb(t_list **stack_a, t_list **stack_b)
 {
 	if(push(stack_a, stack_b) == 0)
 		return;
-	ft_putendl_fd("pb", 1);
+	ft_putendl_fd("pb", STDOUT_FILENO);
 }
 
 int swap(t_list **stack)
@@ -120,7 +120,7 @@ void sa(t_list **stack_a)
 	// swap(stack_a);
 	if(swap(stack_a) == 0)
 		return;
-	ft_putendl_fd("sa", 1);
+	ft_putendl_fd("sa", STDOUT_FILENO);
 }
 
 void sb(t_list **stack_b)
@@ -128,12 +128,12 @@ void sb(t_list **stack_b)
 	// swap(stack_a);
 	if(swap(stack_b) == 0)
 		return;
-	ft_putendl_fd("sa", 1);
+	ft_putendl_fd("sb", STDOUT_FILENO);
 }
 
 void ss(t_list **stack_a, t_list **stack_b)
 {
 	if(swap(stack_a) == 0 && swap(stack_b) == 0)
 		return;
-	ft_putendl_fd("ss", 1);
+	ft_putendl_fd("ss", STDOUT_FILENO);
 }

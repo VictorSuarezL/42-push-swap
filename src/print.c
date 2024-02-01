@@ -8,6 +8,7 @@ void print_double_p(char **s)
 	i = 0;
 	while (s[i])
 	{
+		printf("%s\n", s[i]);
 		i++;
 	}
 }

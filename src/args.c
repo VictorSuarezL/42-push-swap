@@ -34,7 +34,6 @@ char *ft_copy_args(int ac, char **av)
 		else
 			args[k++] = '\0';
 	}
-	// args[++k] = '\0';
 	return(args);
 }
 
@@ -52,6 +51,20 @@ int ft_is_unique(int num, int *array, int len)
 	return(1);
 }
 
+int is_validable(char *s)
+{
+	int num;
+	char *s_num;
+	int res;
+	num = ft_atoi(s);
+	s_num = ft_itoa(num);
+	
+	res = ft_strncmp(s, s_num, ft_strlen(s));
+	free(s_num);
+	return res;
+}
+
+
 int *ft_create_args(char **s)
 {
 	int len = 0;
@@ -68,18 +81,18 @@ int *ft_create_args(char **s)
 
 	while(s[i])
 	{
-		if(ft_strncmp(s[i], ft_itoa(ft_atoi(s[i])), ft_strlen(s[i])) == 0)
+		if(is_validable(s[i]) == 0)
 		{
-			num = ft_atoi(s[i]);
-			if(ft_is_unique(num, array_num, i) == 1)
-			{
-				array_num[i] = num;
-			}
-			else
-			{
-				free(array_num);
-				ft_error("Error!");
-			}
+		num = ft_atoi(s[i]);
+		if(ft_is_unique(num, array_num, i) == 1)
+		{
+			array_num[i] = num;
+		}
+		else
+		{
+			free(array_num);
+			ft_error("Error!");
+		}
 		}
 		else
 		{
@@ -129,6 +142,7 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 		ft_lstlast(*lst)->next = new;
 }
 
+// This function 
 void ft_init_stack(t_list **stack, int ac, char **av)
 {
 	char *str_args;
@@ -152,9 +166,11 @@ void ft_init_stack(t_list **stack, int ac, char **av)
 	{
 		lst = ft_lst_new(array_num[i]);
 		ft_lstadd_back(stack, lst);
+		// free(lst);
 		i++;
 	}
-
+	// // free(lst);
+	free(array_num);
 	free(str_args);
 	free_all(args_split);
 }
