@@ -15,7 +15,7 @@ NAME		= push_swap
 NAME_BONUS = checker
 
 #INSTRUCTIONS
-CC			= gcc -MMD -g -I$(INCLUDE) 
+CC			= gcc -Wall -Wextra -Werror -MMD -g -I$(INCLUDE) 
 RM 			= rm -rf
 
 #FOLDERS

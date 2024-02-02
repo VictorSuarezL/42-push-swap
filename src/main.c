@@ -17,6 +17,7 @@ static void	loop(t_list **stack_a, t_list **stack_b)
 	int	pos;
 	int	cheapest;
 
+	pos = 0;
 	if (get_lst_size(*stack_a) > 3)
 	{
 		ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
@@ -35,16 +36,11 @@ static void	loop(t_list **stack_a, t_list **stack_b)
 
 static void	rev_loop(t_list **stack_a, t_list **stack_b)
 {
-	int	pos;
-	int	cheapest;
-
 	while (get_lst_size(*stack_b) > 0)
 	{
 		count_steps_a(*stack_b);
 		count_reverse_steps(*stack_a, *stack_b);
 		sum_steps(*stack_b);
-		cheapest = get_cheapest(*stack_b);
-		pos = get_pos(*stack_b, cheapest);
 		sort_reverse(stack_a, stack_b, 0);
 	}
 }
@@ -52,6 +48,7 @@ static void	loop_a(t_list **stack_a)
 {
 	int	pos;
 
+	pos = 0;
 	if (is_lst_ordered(*stack_a) == 0)
 	{
 		count_steps_a(*stack_a);
@@ -64,7 +61,6 @@ int	main(int ac, char *av[])
 {
 	t_list	**stack_a;
 	t_list	**stack_b;
-	int		pos;
 
 	if (ac < 1)
 		return (-1);

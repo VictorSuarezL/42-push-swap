@@ -122,9 +122,7 @@ void	ft_init_stack(t_list **stack, int ac, char **av)
 	char	*str_args;
 	char	**args_split;
 	int		*array_num;
-	int		len;
 
-	len = 0;
 	str_args = ft_copy_args(ac, av);
 	args_split = ft_split(str_args, ' ');
 	array_num = ft_create_args(args_split);
