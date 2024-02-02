@@ -82,7 +82,7 @@ int	*ft_create_args(char **s)
 		i++;
 	array_num = (int *)malloc(sizeof(int) * (i + 1));
 	if (!array_num)
-		ft_error("Error!");
+		ft_error("Error");
 	i = 0;
 	while (s[i])
 	{
@@ -92,7 +92,7 @@ int	*ft_create_args(char **s)
 		else
 		{
 			free(array_num);
-			ft_error("Error!");
+			ft_error("Error");
 		}
 		i++;
 	}

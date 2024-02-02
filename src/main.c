@@ -12,13 +12,16 @@
 
 #include <push_swap.h>
 
-
-
 static void	loop(t_list **stack_a, t_list **stack_b)
 {
 	int	pos;
 	int	cheapest;
 
+	if (get_lst_size(*stack_a) > 3)
+	{
+		ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
+		ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
+	}
 	while (get_lst_size(*stack_a) > 3)
 	{
 		count_steps_a(*stack_a);
@@ -74,8 +77,6 @@ int	main(int ac, char *av[])
 		return (0);
 	else
 	{
-		ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
-		ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
 		loop(stack_a, stack_b);
 		sort_three(stack_a);
 		rev_loop(stack_a, stack_b);

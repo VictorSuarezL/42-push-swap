@@ -41,7 +41,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 int is_lst_ordered(t_list *lst)
 {
 	if(!lst)
-		ft_error("Error!");
+		ft_error("Error");
 
 	while(lst->next)
 	{
