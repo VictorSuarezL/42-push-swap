@@ -1,26 +1,142 @@
 #include <push_swap.h>
 
-void count_steps_a(t_list *stack_a)
+/* void sort(t_list **stack_a, t_list **stack_b, int pos)
 {
-	int pos;
-	int size_lst;
+	t_list *tmp;
+	tmp = get_node(*stack_a, pos);
 
-	size_lst = get_lst_size(stack_a);
-	pos = 0;
-	while(stack_a)
+	while (tmp->steps_a != 0 || tmp->steps_b != 0)
 	{
-		if (pos <= (size_lst/2))
+		if (tmp->steps_a < 0 && tmp->steps_b < 0)
 		{
-			stack_a->steps_a = pos;
+			ft_putendl_fd(rrr(stack_a, stack_b), STDOUT_FILENO);
+			tmp->steps_a++;
+			tmp->steps_b++;
 		}
-		else
+		else if (tmp->steps_a > 0 && tmp->steps_b > 0)
 		{
-			stack_a->steps_a = pos - size_lst;
+			ft_putendl_fd(rr(stack_a, stack_b), STDOUT_FILENO);
+			tmp->steps_a--;
+			tmp->steps_b--;
 		}
-		stack_a = stack_a->next;
-		pos++;
+		else if (tmp->steps_a > 0)
+		{
+			ft_putendl_fd(ra(stack_a), STDOUT_FILENO);
+			tmp->steps_a--;
+		}
+		else if (tmp->steps_b > 0)
+		{
+			ft_putendl_fd(rb(stack_b), STDOUT_FILENO);
+			tmp->steps_b--;
+		}
+		else if (tmp->steps_a < 0)
+		{
+			ft_putendl_fd(rra(stack_a), STDOUT_FILENO);
+			tmp->steps_a++;
+		}
+		else if (tmp->steps_b < 0)
+		{
+			ft_putendl_fd(rrb(stack_b), STDOUT_FILENO);
+			tmp->steps_b++;
+		}
 	}
+	ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
+} */
+
+void handle_negative_steps_sort(t_list *tmp, t_list **stack_a, t_list **stack_b)
+{
+    if (tmp->steps_a < 0 && tmp->steps_b < 0)
+    {
+        ft_putendl_fd(rrr(stack_a, stack_b), STDOUT_FILENO);
+        tmp->steps_a++;
+        tmp->steps_b++;
+    }
+    else if (tmp->steps_a < 0)
+    {
+        ft_putendl_fd(rra(stack_a), STDOUT_FILENO);
+        tmp->steps_a++;
+    }
+    else if (tmp->steps_b < 0)
+    {
+        ft_putendl_fd(rrb(stack_b), STDOUT_FILENO);
+        tmp->steps_b++;
+    }
 }
+
+void handle_positive_steps_sort(t_list *tmp, t_list **stack_a, t_list **stack_b)
+{
+    if (tmp->steps_a > 0 && tmp->steps_b > 0)
+    {
+        ft_putendl_fd(rr(stack_a, stack_b), STDOUT_FILENO);
+        tmp->steps_a--;
+        tmp->steps_b--;
+    }
+    else if (tmp->steps_a > 0)
+    {
+        ft_putendl_fd(ra(stack_a), STDOUT_FILENO);
+        tmp->steps_a--;
+    }
+    else if (tmp->steps_b > 0)
+    {
+        ft_putendl_fd(rb(stack_b), STDOUT_FILENO);
+        tmp->steps_b--;
+    }
+}
+
+void sort(t_list **stack_a, t_list **stack_b, int pos)
+{
+    t_list *tmp = get_node(*stack_a, pos);
+
+    while (tmp->steps_a != 0 || tmp->steps_b != 0)
+    {
+        handle_negative_steps_sort(tmp, stack_a, stack_b);
+        handle_positive_steps_sort(tmp, stack_a, stack_b);
+    }
+    ft_putendl_fd(pb(stack_a, stack_b), STDOUT_FILENO);
+}
+
+/* void sort_reverse(t_list **stack_a, t_list **stack_b, int pos)
+{
+	t_list *tmp;
+	tmp = get_node(*stack_b, pos);
+
+	while (tmp->steps_a != 0 || tmp->steps_b != 0)
+	{
+		if (tmp->steps_a < 0 && tmp->steps_b < 0)
+		{
+			ft_putendl_fd(rrr(stack_a, stack_b), STDOUT_FILENO);
+			tmp->steps_a++;
+			tmp->steps_b++;
+		}
+		else if (tmp->steps_a > 0 && tmp->steps_b > 0)
+		{
+			ft_putendl_fd(rr(stack_a, stack_b), STDOUT_FILENO);
+			tmp->steps_a--;
+			tmp->steps_b--;
+		}
+		else if (tmp->steps_a > 0)
+		{
+			ft_putendl_fd(rb(stack_b), STDOUT_FILENO);
+			tmp->steps_a--;
+		}
+		else if (tmp->steps_b > 0)
+		{
+			ft_putendl_fd(ra(stack_a), STDOUT_FILENO);
+			tmp->steps_b--;
+		}
+		else if (tmp->steps_a < 0)
+		{
+			ft_putendl_fd(rrb(stack_b), STDOUT_FILENO);
+			tmp->steps_a++;
+		}
+		else if (tmp->steps_b < 0)
+		{
+			ft_putendl_fd(rra(stack_a), STDOUT_FILENO);
+			tmp->steps_b++;
+		}
+	}
+	ft_putendl_fd(pa(stack_a, stack_b), STDOUT_FILENO);
+} */
 
 void sort_three(t_list **lst)
 {
@@ -33,244 +149,16 @@ void sort_three(t_list **lst)
 		max_pos = get_pos(*lst, get_max(*lst));
 		
 		if (max_pos == 0 && min_pos == 2)
-			ra(lst);
+			ft_putendl_fd(ra(lst), STDOUT_FILENO);
 		else if (max_pos == 1 && min_pos == 0)
-			sa(lst);
+			ft_putendl_fd(sa(lst), STDOUT_FILENO);
 		else if (max_pos == 0 && min_pos == 1)
-			ra(lst);
+			ft_putendl_fd(ra(lst), STDOUT_FILENO);
 		else if (max_pos == 1 && min_pos == 2)
-			rra(lst);
+			ft_putendl_fd(rra(lst), STDOUT_FILENO);
 		else if (max_pos == 2 && min_pos == 1)
-			sa(lst);
+			ft_putendl_fd(sa(lst), STDOUT_FILENO);
 	}
-}
-
-int get_target(t_list *stack_a, t_list *stack_b, int size_b)
-{
-	int target;
-	int last_value_b;
-	int first_value_b;
-
-	target = 0;
-	if (stack_a->value < get_min(stack_b) || stack_a->value > get_max(stack_b))
-		target = get_max(stack_b);
-	else
-	{
-		first_value_b = get_node(stack_b, 0)->value;
-		last_value_b = get_node(stack_b, size_b-1)->value;
-		while(stack_b->next)
-		{
-			if (stack_a->value < stack_b->value && stack_a->value > stack_b->next->value)
-			{
-				target = stack_b->next->value;
-			}
-			else if (stack_a->value < last_value_b && stack_a->value > first_value_b)
-			{
-				target = first_value_b;
-			}
-			stack_b = stack_b->next;
-		}
-	}
-	return target;
-}
-
-void count_steps_b(t_list *stack_a, t_list *stack_b)
-{
-	int size_b;
-	int target;
-
-	size_b = get_lst_size(stack_b);
-	while (stack_a)
-	{
-		target = get_target(stack_a, stack_b, size_b);
-		if (get_pos(stack_b, target) <= size_b/2)
-		{
-			stack_a->steps_b = get_pos(stack_b, target);
-		}
-		else
-		{
-			stack_a->steps_b = -(size_b - get_pos(stack_b, target));
-		}
-		stack_a = stack_a->next;
-	}
-}
-
-int get_reverse_target(t_list *dst, t_list *src, int size_dst)
-{
-	int target;
-	int src_value;
-	int last_value_dst;
-	int first_value_dst;
-
-	src_value = src->value;
-	if (src_value < get_min(dst) || src_value > get_max(dst))
-		target = get_min(dst);
-	else
-	{
-		first_value_dst = get_node(dst, 0)->value;
-		last_value_dst = get_node(dst, size_dst-1)->value;
-
-		while (dst->next)
-		{
-			if (src_value > dst->value && src_value < dst->next->value)
-			{
-				target = dst->next->value;
-			}
-			else if (src_value > last_value_dst && src_value < first_value_dst)
-			{
-				target = first_value_dst;
-			}
-			dst = dst->next;
-		}
-	}
-
-	return target;
-}
-
-void count_reverse_steps(t_list *dst, t_list *src)
-{	
-	int size_dst;
-	int target;
-	size_dst = get_lst_size(dst);
-	while (src)
-	{
-		target = get_reverse_target(dst, src, size_dst);
-		if (get_pos(dst, target) <= size_dst/2)
-		{
-			src->steps_b = get_pos(dst, target);
-		}
-		else
-		{
-			src->steps_b = -(size_dst - get_pos(dst, target));
-		}
-		src = src->next;
-	}
-}
-
-void sum_steps(t_list *stack_a)
-{
-	while (stack_a)
-	{	
-		if((stack_a->steps_a < 0 && stack_a->steps_b < 0) || (stack_a->steps_a > 0 && stack_a->steps_b > 0))
-		{		
-			if (abs(stack_a->steps_a) > abs(stack_a->steps_b))
-				stack_a->total = abs(stack_a->steps_a);
-			else
-				stack_a->total = abs(stack_a->steps_b);
-		}
-		else
-			stack_a->total = abs(stack_a->steps_a) + abs(stack_a->steps_b);
-		stack_a = stack_a->next;
-	}
-}
-
-int get_cheapest(t_list *stack_a)
-{
-	int min;
-	int value_min;
-
-	if(stack_a)
-	{
-		min = stack_a->total;
-		value_min = stack_a->value;
-		stack_a = stack_a->next;
-	}
-	while(stack_a)
-	{
-		if(stack_a->total < min)
-		{
-			min = stack_a->total;
-			value_min = stack_a->value;
-		}   
-		stack_a = stack_a->next;
-	}
-	return value_min;
-}
-
-void sort(t_list **stack_a, t_list **stack_b, int pos)
-{
-	t_list *tmp;
-	tmp = get_node(*stack_a, pos);
-
-	while (tmp->steps_a != 0 || tmp->steps_b != 0)
-	{
-		if (tmp->steps_a < 0 && tmp->steps_b < 0)
-		{
-			rrr(stack_a, stack_b);
-			tmp->steps_a++;
-			tmp->steps_b++;
-		}
-		else if (tmp->steps_a > 0 && tmp->steps_b > 0)
-		{
-			rr(stack_a, stack_b);
-			tmp->steps_a--;
-			tmp->steps_b--;
-		}
-		else if (tmp->steps_a > 0)
-		{
-			ra(stack_a);
-			tmp->steps_a--;
-		}
-		else if (tmp->steps_b > 0)
-		{
-			rb(stack_b);
-			tmp->steps_b--;
-		}
-		else if (tmp->steps_a < 0)
-		{
-			rra(stack_a);
-			tmp->steps_a++;
-		}
-		else if (tmp->steps_b < 0)
-		{
-			rrb(stack_b);
-			tmp->steps_b++;
-		}
-	}
-	pb(stack_a, stack_b);
-}
-
-void sort_reverse(t_list **stack_a, t_list **stack_b, int pos)
-{
-	t_list *tmp;
-	tmp = get_node(*stack_b, pos);
-
-	while (tmp->steps_a != 0 || tmp->steps_b != 0)
-	{
-		if (tmp->steps_a < 0 && tmp->steps_b < 0)
-		{
-			rrr(stack_a, stack_b);
-			tmp->steps_a++;
-			tmp->steps_b++;
-		}
-		else if (tmp->steps_a > 0 && tmp->steps_b > 0)
-		{
-			rr(stack_a, stack_b);
-			tmp->steps_a--;
-			tmp->steps_b--;
-		}
-		else if (tmp->steps_a > 0)
-		{
-			rb(stack_b);
-			tmp->steps_a--;
-		}
-		else if (tmp->steps_b > 0)
-		{
-			ra(stack_a);
-			tmp->steps_b--;
-		}
-		else if (tmp->steps_a < 0)
-		{
-			rrb(stack_b);
-			tmp->steps_a++;
-		}
-		else if (tmp->steps_b < 0)
-		{
-			rra(stack_a);
-			tmp->steps_b++;
-		}
-	}
-	pa(stack_a, stack_b);
 }
 
 void sort_a(t_list **stack_a, int pos)
@@ -282,12 +170,12 @@ void sort_a(t_list **stack_a, int pos)
 	{
 		if (tmp->steps_a > 0)
 		{
-			ra(stack_a);
+			ft_putendl_fd(ra(stack_a), STDOUT_FILENO);
 			tmp->steps_a--;
 		}
 		else if (tmp->steps_a < 0)
 		{
-			rra(stack_a);
+			ft_putendl_fd(rra(stack_a), STDOUT_FILENO);
 			tmp->steps_a++;
 		}
 	}

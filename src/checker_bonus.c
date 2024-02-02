@@ -28,37 +28,30 @@ static void	check_move(char *move, t_list **stack_a, t_list **stack_b)
 		ft_error("Error");
 }
 
-
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-    if (ac < 2)
+	t_list	**stack_a;
+	t_list	**stack_b;
+	char	*line;
+
+	if (ac < 1)
 		return (-1);
-
-	t_list **stack_a;
-	t_list **stack_b;
-
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	stack_b = (t_list **)malloc(sizeof(t_list));
-
 	*stack_a = NULL;
 	*stack_b = NULL;
-
-    char *line;
-
 	ft_init_stack(stack_a, ac, av);
-    line = get_next_line(STDIN_FILENO);
-
-    while (line)
-    {
-        check_move(line, stack_a, stack_b);
-        free(line);
-        line = get_next_line(STDIN_FILENO);
-    }
-    if(is_lst_ordered(*stack_a))
-        ft_putendl_fd("OK", 1);
-    else
-    {
-        ft_putendl_fd("KO", 1);
-    }
-    
+	line = get_next_line(STDIN_FILENO);
+	while (line)
+	{
+		check_move(line, stack_a, stack_b);
+		free(line);
+		line = get_next_line(STDIN_FILENO);
+	}
+	if (is_lst_ordered(*stack_a))
+		ft_putendl_fd("OK", 1);
+	else
+	{
+		ft_putendl_fd("KO", 1);
+	}
 }

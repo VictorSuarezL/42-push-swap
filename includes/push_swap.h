@@ -26,7 +26,6 @@ typedef struct s_list
 }					t_list;
 
 // HELPER FORBIDEN FUNCTIONS
-// int display = 0;
 void print_list(t_list *lst);
 void display_lst(t_list *stack_a, t_list *stack_b);
 void display_lst_reverse(t_list *stack_a, t_list *stack_b);
@@ -35,20 +34,19 @@ void print_array_of_int(int *num, int len);
 
 // UTILS
 void ft_error(char *msg);
-char **free_all(char **s);
-// void free_lst(t_list *lst);
-void free_lst_del(t_list **lst);
+void free_all(char **s);
 int is_lst_ordered(t_list *lst);
 int get_lst_size(t_list *lst);
 t_list *get_node(t_list *stack, int pos);
 int get_min(t_list *lst);
 int get_max(t_list *lst);
 int get_pos(t_list *lst, int num);
+void	free_list(t_list **list);
 
 // ARGS FUNCTIONS:
-int is_validable(char *s);
 char *ft_copy_args(int ac, char **av);
 int ft_is_unique(int num, int *array, int len);
+int is_validable(char *s);
 int *ft_create_args(char **s);
 t_list *ft_lst_new(int value);
 t_list *ft_lstlast(t_list *lst);
@@ -57,20 +55,20 @@ void ft_init_stack(t_list **stack, int ac, char **av);
 
 // MOVES:
 int rev_rotate(t_list **lst);
-void rra(t_list **stack_a);
-void rrb(t_list **stack_b);
-void rrr(t_list **stack_a, t_list **stack_b);
+char *rra(t_list **stack_a);
+char *rrb(t_list **stack_b);
+char *rrr(t_list **stack_a, t_list **stack_b);
 int rotate(t_list **lst);
-void ra(t_list **stack_a);
-void rb(t_list **stack_b);
-void rr(t_list **stack_a, t_list **stack_b);
+char *ra(t_list **stack_a);
+char *rb(t_list **stack_b);
+char *rr(t_list **stack_a, t_list **stack_b);
 int push(t_list **src, t_list **dst);
-void pa(t_list **stack_a, t_list **stack_b);
-void pb(t_list **stack_a, t_list **stack_b);
+char *pa(t_list **stack_a, t_list **stack_b);
+char *pb(t_list **stack_a, t_list **stack_b);
 int swap(t_list **stack);
-void sa(t_list **stack_a);
-void sb(t_list **stack_b);
-void ss(t_list **stack_a, t_list **stack_b);
+char *sa(t_list **stack_a);
+char *sb(t_list **stack_b);
+char *ss(t_list **stack_a, t_list **stack_b);
 
 // SORT:
 void count_steps_a(t_list *stack_a);

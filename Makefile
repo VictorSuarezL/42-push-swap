@@ -25,20 +25,34 @@ OBJ_DIR = obj
 
 #FILES
 SRC_FILES		= $(SRC_DIR)/main.c \
-	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/moves/push.c \
+	$(SRC_DIR)/moves/rev_rotate.c \
+	$(SRC_DIR)/moves/rotate.c \
+	$(SRC_DIR)/moves/swap.c \
 	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/count_steps.c \
+	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/sort_reverse.c \
+	$(SRC_DIR)/sort_utils.c \
+	$(SRC_DIR)/sort.c \
+	$(SRC_DIR)/utils_ft_list.c \
+	$(SRC_DIR)/utils_get.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/moves.c \
-	$(SRC_DIR)/sort.c 
 
 SRC_FILES_BONUS = $(SRC_DIR)/checker_bonus.c \
-	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/moves/push.c \
+	$(SRC_DIR)/moves/rev_rotate.c \
+	$(SRC_DIR)/moves/rotate.c \
+	$(SRC_DIR)/moves/swap.c \
 	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/count_steps.c \
+	$(SRC_DIR)/print.c \
+	$(SRC_DIR)/sort_reverse.c \
+	$(SRC_DIR)/sort_utils.c \
+	$(SRC_DIR)/sort.c \
+	$(SRC_DIR)/utils_ft_list.c \
+	$(SRC_DIR)/utils_get.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/moves.c \
-
-
-
 
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 BONUS_OBJ = $(patsubst %.c,$(OBJ_DIR)/%.o, $(SRC_FILES_BONUS))
@@ -63,19 +77,12 @@ $(NAME): $(OBJ_FILES)
 
 -include $(DEP)
 
-# $(OBJ_DIR)/%.o: %.c Makefile
-# 	@mkdir -p $(dir $@)
-# 	$(CC) -c $< -o $@
-
 $(NAME_BONUS): $(BONUS_OBJ)
 		$(CC) $(BONUS_OBJ) $(FT_LINK) -o $(NAME_BONUS)
 
 -include $(BONUS_DEP)
 
 bonus: $(NAME_BONUS)
-
-# bonus:		$(BONUS_OBJ)
-# 			gcc -I./includes $(BONUS_OBJ) ./includes/libft/libft.a -o $(NAME_BONUS)
 
 clean:
 	$(RM) $(OBJ) $(DEP) $(BONUS_OBJ) $(BONUS_DEP)
