@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/01/19 16:52:13 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:30:04 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int	main(int ac, char *av[])
 	*stack_b = NULL;
 	ft_init_stack(stack_a, ac, av);
 	if (is_lst_ordered(*stack_a))
+	{
+		free_list(stack_a);
+		free_list(stack_b);
 		return (0);
+	}
 	else
 	{
 		loop(stack_a, stack_b);
