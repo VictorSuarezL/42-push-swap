@@ -6,7 +6,7 @@
 #    By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 12:16:50 by vsanz-su          #+#    #+#              #
-#    Updated: 2024/01/18 15:26:43 by vsanz-su         ###   ########.fr        #
+#    Updated: 2024/03/09 18:56:02 by vsanz-su         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		= push_swap
 NAME_BONUS = checker
 
 #INSTRUCTIONS
-CC			= gcc -Wall -Wextra -Werror -MMD -g -I$(INCLUDE) 
+CC			= gcc -Wall -Wextra -Werror -MMD -g -I$(INCLUDE)
 RM 			= rm -rf
 
 #FOLDERS
@@ -30,8 +30,8 @@ SRC_FILES		= $(SRC_DIR)/main.c \
 	$(SRC_DIR)/moves/rotate.c \
 	$(SRC_DIR)/moves/swap.c \
 	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/args_utils.c \
 	$(SRC_DIR)/count_steps.c \
-	$(SRC_DIR)/print.c \
 	$(SRC_DIR)/sort_reverse.c \
 	$(SRC_DIR)/sort_utils.c \
 	$(SRC_DIR)/sort.c \
@@ -45,8 +45,8 @@ SRC_FILES_BONUS = $(SRC_DIR)/checker_bonus.c \
 	$(SRC_DIR)/moves/rotate.c \
 	$(SRC_DIR)/moves/swap.c \
 	$(SRC_DIR)/args.c \
+	$(SRC_DIR)/args_utils.c \
 	$(SRC_DIR)/count_steps.c \
-	$(SRC_DIR)/print.c \
 	$(SRC_DIR)/sort_reverse.c \
 	$(SRC_DIR)/sort_utils.c \
 	$(SRC_DIR)/sort.c \
@@ -65,7 +65,7 @@ FT_LINK = -L$(LIBFT_SRC) -lft
 
 #RULES
 all:
-	$(MAKE) -C $(LIBFT_SRC) 
+	$(MAKE) -C $(LIBFT_SRC)
 	$(MAKE) $(NAME)
 
 $(OBJ_DIR)/%.o: %.c Makefile
@@ -82,7 +82,7 @@ $(NAME_BONUS): $(BONUS_OBJ)
 
 -include $(BONUS_DEP)
 
-bonus: $(NAME_BONUS)
+bonus: all $(NAME_BONUS)
 
 clean:
 	$(RM) $(OBJ) $(DEP) $(BONUS_OBJ) $(BONUS_DEP)

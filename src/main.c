@@ -6,7 +6,7 @@
 /*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:06:25 by vsanz-su          #+#    #+#             */
-/*   Updated: 2024/02/19 12:30:04 by vsanz-su         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:44:13 by vsanz-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	rev_loop(t_list **stack_a, t_list **stack_b)
 		sort_reverse(stack_a, stack_b, 0);
 	}
 }
+
 static void	loop_a(t_list **stack_a)
 {
 	int	pos;
@@ -66,8 +67,6 @@ int	main(int ac, char *av[])
 		return (-1);
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	stack_b = (t_list **)malloc(sizeof(t_list));
-	*stack_a = NULL;
-	*stack_b = NULL;
 	ft_init_stack(stack_a, ac, av);
 	if (is_lst_ordered(*stack_a))
 	{

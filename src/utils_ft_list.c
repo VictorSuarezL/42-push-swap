@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_ft_list.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/04 14:08:35 by vsanz-su          #+#    #+#             */
+/*   Updated: 2024/03/04 14:08:53 by vsanz-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <push_swap.h>
 
-t_list *ft_lst_new(int value)
+t_list	*ft_lst_new(int value)
 {
 	t_list	*node;
 
@@ -38,16 +50,15 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		ft_lstlast(*lst)->next = new;
 }
 
-int is_lst_ordered(t_list *lst)
+int	is_lst_ordered(t_list *lst)
 {
-	if(!lst)
+	if (!lst)
 		ft_error("Error");
-
-	while(lst->next)
+	while (lst->next)
 	{
-		if(lst->value > lst->next->value)
-			return(0);
+		if (lst->value > lst->next->value)
+			return (0);
 		lst = lst->next;
 	}
-	return 1;
+	return (1);
 }

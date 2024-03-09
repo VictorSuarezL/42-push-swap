@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-
+push_swap_test.sh
 # Object files
 *.o
 *.ko

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/04 13:56:34 by vsanz-su          #+#    #+#             */
+/*   Updated: 2024/03/09 18:35:46 by vsanz-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <push_swap.h>
 
 static void	check_move(char *move, t_list **stack_a, t_list **stack_b)
@@ -36,10 +48,10 @@ int	main(int ac, char *av[])
 
 	if (ac < 1)
 		return (-1);
+	if (av[1][0] == '\0')
+		ft_error("Error");
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	stack_b = (t_list **)malloc(sizeof(t_list));
-	*stack_a = NULL;
-	*stack_b = NULL;
 	ft_init_stack(stack_a, ac, av);
 	line = get_next_line(STDIN_FILENO);
 	while (line)
@@ -51,7 +63,7 @@ int	main(int ac, char *av[])
 	if (is_lst_ordered(*stack_a))
 		ft_putendl_fd("OK", 1);
 	else
-	{
 		ft_putendl_fd("KO", 1);
-	}
+	free_list(stack_a);
+	free_list(stack_b);
 }

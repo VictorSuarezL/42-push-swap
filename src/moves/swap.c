@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/09 16:36:07 by vsanz-su          #+#    #+#             */
+/*   Updated: 2024/03/09 16:36:22 by vsanz-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <push_swap.h>
 
 int	swap(t_list **stack)
@@ -15,19 +27,15 @@ int	swap(t_list **stack)
 
 char	*sa(t_list **stack_a)
 {
-	// swap(stack_a);
 	if (swap(stack_a) == 0)
 		return (NULL);
-	// ft_putendl_fd("sa", STDOUT_FILENO);
 	return ("sa");
 }
 
 char	*sb(t_list **stack_b)
 {
-	// swap(stack_a);
 	if (swap(stack_b) == 0)
 		return (NULL);
-	// ft_putendl_fd("sb", STDOUT_FILENO);
 	return ("sb");
 }
 
@@ -35,6 +43,5 @@ char	*ss(t_list **stack_a, t_list **stack_b)
 {
 	if (swap(stack_a) == 0 && swap(stack_b) == 0)
 		return (NULL);
-	// ft_putendl_fd("ss", STDOUT_FILENO);
 	return ("ss");
 }

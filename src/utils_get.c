@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_get.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsanz-su <vsanz-su@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/04 14:10:16 by vsanz-su          #+#    #+#             */
+/*   Updated: 2024/03/04 14:10:21 by vsanz-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <push_swap.h>
 
-int get_lst_size(t_list *lst)
+int	get_lst_size(t_list *lst)
 {
 	int	i;
 
@@ -66,8 +78,9 @@ int	get_max(t_list *lst)
 
 int	get_pos(t_list *lst, int num)
 {
-	int pos = 0;
+	int	pos;
 
+	pos = 0;
 	while (lst->value != num)
 	{
 		pos++;
